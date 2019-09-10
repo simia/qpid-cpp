@@ -762,6 +762,7 @@ set (qpidcommon_SOURCES
      qpid/UrlArray.cpp
      qpid/NullSaslClient.cpp
      qpid/NullSaslServer.cpp
+	 qpid/SaslAuthWin.cpp
      qpid/amqp_0_10/SessionHandler.cpp
      qpid/framing/AccumulatedAck.cpp
      qpid/framing/AMQBody.cpp

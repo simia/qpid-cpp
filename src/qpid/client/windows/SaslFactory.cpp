@@ -29,6 +29,8 @@
 #include "qpid/NullSaslServer.h"
 #include "qpid/sys/SystemInfo.h"
 
+#include "qpid/SaslAuthWin.h"
+
 #include "boost/tokenizer.hpp"
 
 namespace qpid {
@@ -111,7 +113,9 @@ std::auto_ptr<Sasl> SaslFactory::create( const std::string & username, const std
 
 std::auto_ptr<SaslServer> SaslFactory::createServer( const std::string& realm, const std::string& /*service*/, bool /*encryptionRequired*/, const qpid::sys::SecuritySettings& )
 {
-    std::auto_ptr<SaslServer> server(new NullSaslServer(realm));
+    //std::auto_ptr<SaslServer> server(new NullSaslServer(realm));
+    std::auto_ptr<SaslServer> server(new SspiSaslServer(realm));
+    
     return server;
 }
 
