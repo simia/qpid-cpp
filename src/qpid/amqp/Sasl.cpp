@@ -31,7 +31,7 @@
 namespace qpid {
 namespace amqp {
 
-Sasl::Sasl(const std::string& i) : id(i), buffer(2*512/*AMQP 1.0's MAX_MIN_FRAME_SIZE - is this enough though?*/), encoder(&buffer[0], buffer.size()) {}
+Sasl::Sasl(const std::string& i) : id(i), buffer(3*512/*AMQP 1.0's MAX_MIN_FRAME_SIZE - is this enough though?*/), encoder(&buffer[0], buffer.size()) {}
 Sasl::~Sasl() {}
 
 void* Sasl::startFrame()
