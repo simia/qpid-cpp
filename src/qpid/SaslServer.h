@@ -40,6 +40,8 @@ class SaslServer
     virtual Status step(const std::string* response, std::string& challenge) = 0;
     virtual std::string getMechanisms() = 0;
     virtual std::string getUserid() = 0;
+    virtual std::string getUserSid() = 0;
+    virtual std::string getUserGuid() = 0;
     virtual std::auto_ptr<qpid::sys::SecurityLayer> getSecurityLayer(size_t) = 0;
   private:
 };

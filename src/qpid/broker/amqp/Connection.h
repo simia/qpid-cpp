@@ -66,6 +66,10 @@ class Connection : public BrokerContext, public sys::ConnectionCodec, public Man
     framing::ProtocolVersion getVersion() const;
     pn_transport_t* getTransport();
     void setUserId(const std::string&);
+    void setUserGuid(const std::string&);
+    void setUserSid(const std::string&);
+    const std::string& getUserGuid() const;
+    const std::string& getUserSid() const;
     void abort();
     void trace(const char*) const;
     void requestIO();
@@ -105,6 +109,9 @@ class Connection : public BrokerContext, public sys::ConnectionCodec, public Man
     void doLinkRemoteClose(pn_link_t *link);
     void doLinkRemoteDetach(pn_link_t *link, bool closed);
     void doDeliveryUpdated(pn_delivery_t *delivery);
+
+    std::string userSid;
+    std::string userGuid;
 };
 }}} // namespace qpid::broker::amqp
 

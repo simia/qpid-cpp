@@ -126,8 +126,8 @@ namespace qpid {
 
                 GetUserNameEx(NameUniqueId, guid, &len);
                 GetUserNameA(username, &len);
-
-                std::cout << "Authenticated as: [guid: " << guid<< ", user: " << username << "]\n";
+                
+                userGuid = guid;
                 userid = username;
                 
             });
@@ -160,9 +160,20 @@ namespace qpid {
     {
         return std::string("GSSAPI");
     }
+
     std::string SspiSaslServer::getUserid()
     {
         return userid;
+    }
+
+    std::string SspiSaslServer::getUserSid()
+    {
+        return userSid;
+    }
+
+    std::string SspiSaslServer::getUserGuid()
+    {
+        return userGuid;
     }
 
     std::auto_ptr<qpid::sys::SecurityLayer> SspiSaslServer::getSecurityLayer(size_t)

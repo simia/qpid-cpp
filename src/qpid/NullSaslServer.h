@@ -40,6 +40,8 @@ class NullSaslServer : public SaslServer
     Status step(const std::string* response, std::string& challenge);
     std::string getMechanisms();
     std::string getUserid();
+    std::string getUserGuid() { return ""; }
+    std::string getUserSid() { return ""; }
     std::auto_ptr<qpid::sys::SecurityLayer> getSecurityLayer(size_t);
   private:
     std::string realm;

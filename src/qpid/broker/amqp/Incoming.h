@@ -44,17 +44,21 @@ class Incoming : public ManagedIncomingLink
     virtual bool haveWork();//called when handling input to see whether any output work is needed
     virtual void detached(bool closed);
     virtual void readable(pn_delivery_t* delivery) = 0;
-    void verify(const std::string& userid, const std::string& defaultRealm);
+    void verify(const std::string& userid, const std::string& defaultRealm, const std::string& guid, const std::string& sid);
     void wakeup();
   protected:
     class UserId
     {
       public:
         UserId();
-        void init(const std::string& userid, const std::string& defaultRealm);
+        void init(const std::string& userid, const std::string& defaultRealm, const std::string& guid, const std::string& sid);
         void verify(const std::string& claimed);
+        const std::string& getGuid() { return userGuid; }
+        const std::string& getSid() { return userSid; }
       private:
         std::string userid;
+        std::string userGuid;
+        std::string userSid;
         bool inDefaultRealm;
         std::string unqualified;
     };

@@ -446,7 +446,8 @@ void Session::attach(pn_link_t* link)
             boost::shared_ptr<Incoming> r(new AnonymousRelay(connection.getBroker(), connection, *this, link));
             incoming[link] = r;
             if (connection.getBroker().isAuthenticating() && !connection.isLink())
-                r->verify(connection.getUserId(), connection.getBroker().getRealm());
+                r->verify(connection.getUserId(), connection.getBroker().getRealm(), 
+                    connection.getUserGuid(), connection.getUserSid());
             QPID_LOG(debug, "Incoming link attached for ANONYMOUS-RELAY");
             return;
         } else {
@@ -500,7 +501,8 @@ void Session::setupIncoming(pn_link_t* link, pn_terminus_t* target, const std::s
         throw Exception(qpid::amqp::error_conditions::NOT_FOUND, std::string("Node not found: ") + name);
     }
     if (connection.getBroker().isAuthenticating() && !connection.isLink())
-        incoming[link]->verify(connection.getUserId(), connection.getBroker().getRealm());
+        incoming[link]->verify(connection.getUserId(), connection.getBroker().getRealm(),
+            connection.getUserGuid(), connection.getUserSid());
     QPID_LOG(debug, "Incoming link attached");
 }
 

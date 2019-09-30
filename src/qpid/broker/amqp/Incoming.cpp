@@ -67,14 +67,16 @@ void Incoming::wakeup()
     session.wakeup();
 }
 
-void Incoming::verify(const std::string& u, const std::string& r)
+void Incoming::verify(const std::string& u, const std::string& r, const std::string& guid, const std::string& sid)
 {
-    userid.init(u, r);
+    userid.init(u, r, guid, sid);
 }
 
 Incoming::UserId::UserId() : inDefaultRealm(false) {}
-void Incoming::UserId::init(const std::string& u, const std::string& defaultRealm)
+void Incoming::UserId::init(const std::string& u, const std::string& defaultRealm, const std::string& g, const std::string& s)
 {
+    userGuid = g;
+    userSid = s;
     userid = u;
     size_t at = userid.find('@');
     if (at != std::string::npos) {
@@ -148,11 +150,14 @@ void DecodingIncoming::readable(pn_delivery_t* delivery)
 void DecodingIncoming::deliver(boost::intrusive_ptr<qpid::broker::amqp::Message> received, pn_delivery_t* delivery)
 {
     qpid::broker::Message message(received, received);
+    std::cout << "Message: " << message.getContent() << "\n";
     if (isTimestamping) {
         qpid::sys::Duration d(qpid::sys::AbsTime::epoch(), qpid::sys::AbsTime::now());
         message.addAnnotation("x-opt-ingress-timestamp",(int64_t)d);
     }	
     userid.verify(message.getUserId());
+    message.addAnnotation("guid", userid.getGuid());
+    message.addAnnotation("sid", userid.getSid());
     received->begin();
     handle(message, session.getTransaction(delivery));
     Transfer t(delivery, sessionPtr);

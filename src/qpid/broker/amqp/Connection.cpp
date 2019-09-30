@@ -530,6 +530,26 @@ void Connection::setUserId(const std::string& user)
     }
 }
 
+void Connection::setUserGuid(const std::string& guid)
+{
+    userGuid = guid;
+}
+
+void Connection::setUserSid(const std::string& sid)
+{
+    userSid = sid;
+}
+
+const std::string& Connection::getUserSid() const
+{
+    return userSid;
+}
+
+const std::string& Connection::getUserGuid() const
+{
+    return userGuid;
+}
+
 void Connection::closedByManagement()
 {
     closeRequested = true;
