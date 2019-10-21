@@ -23,6 +23,7 @@
  */
 #include <boost/shared_ptr.hpp>
 #include "qpid/messaging/SenderImpl.h"
+#include <string>
 
 namespace qpid {
 namespace messaging {

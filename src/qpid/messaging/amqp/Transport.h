@@ -24,6 +24,7 @@
 #include "qpid/CommonImportExport.h"
 #include "qpid/sys/OutputControl.h"
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace qpid {
 namespace sys {
